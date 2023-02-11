@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 var nodemailer = require("nodemailer");
-const { spawnSync } = require("child_process");
+const { spawn } = require("child_process");
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -15,13 +15,15 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
   res.sendFile(__dirname + "/greetings.html");
-  const python = spawnSync("python", [
+  console.log("Python execution started");
+  const python = spawn("python", [
     "mashup.py",
     req.body.artist,
     req.body.songs,
     req.body.time,
     "output.mp3",
   ]);
+  console.log("Python execution completed!");
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -46,11 +48,15 @@ app.post("/", (req, res) => {
       },
     ],
   };
-  transporter.sendMail(mailOptions, (error) => {
-    if (error) {
-      console.log("yes i am here");
-      return res.status(500).send(error.message);
-    }
+  python.on("close", () => {
+    transporter.sendMail(mailOptions, (error) => {
+      if (error) {
+        console.log("yes i am here");
+        return res.status(500).send(error.message);
+      } else {
+        console.log("Mail sent!");
+      }
+    });
   });
 });
 
