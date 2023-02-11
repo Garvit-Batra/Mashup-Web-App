@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <title>Mashup Web App</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>CREATE MASHUP WEB APP</h1>
+      <div>
+        <form action="/" method="post">
+          <div class="mb-3 row">
+            <div class="col-sm-10">
+              <label for="" class="col-sm-2 col-form-label font-weight-bold"
+                >Artists Name</label
+              >
+              <input type="text" class="form-control" name="artist" />
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <div class="col-sm-10">
+              <label for="" class="col-sm-2 col-form-label"
+                >Number of Videos</label
+              >
+              <p>Note: Number of videos should be greater than 1</p>
+              <input type="text" class="form-control" name="songs" />
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <div class="col-sm-10">
+              <label for="" class="col-sm-2 col-form-label">End Time</label>
+              <p>Note: End time should be greater than equal to 20</p>
+              <input type="text" class="form-control" name="time" />
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <div class="col-sm-10">
+              <label for="" class="col-sm-2 col-form-label">E-mail</label>
+              <input type="email" class="form-control" name="email" />
+            </div>
+          </div>
+          <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
