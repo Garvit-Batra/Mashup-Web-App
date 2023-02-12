@@ -50,7 +50,7 @@ def main():
     n = int(sys.argv[2])
     end_time = int(sys.argv[3])
     output_file = sys.argv[4]
-    downloadSongs(search_query,n,end_time)
+    # downloadSongs(search_query,n,end_time)
     mergeSongs(output_file)
 
 if __name__ == "__main__":
