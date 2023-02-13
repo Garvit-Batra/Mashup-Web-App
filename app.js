@@ -23,40 +23,40 @@ app.post("/", (req, res) => {
     req.body.time,
     "output.mp3",
   ]);
-  // const transporter = nodemailer.createTransport({
-  //   host: "smtp.gmail.com",
-  //   port: 465,
-  //   secure: true,
-  //   auth: {
-  //     type: "OAuth2",
-  //     user: process.env.MAIL_USERNAME,
-  //     clientId: process.env.OAUTH_CLIENTID,
-  //     clientSecret: process.env.OAUTH_CLIENT_SECRET,
-  //     refreshToken: process.env.OAUTH_REFRESH_TOKEN,
-  //     accessToken: process.env.ACCESS_TOKEN,
-  //   },
-  // });
-  // const mailOptions = {
-  //   from: process.env.MAIL,
-  //   to: req.body.email,
-  //   subject: "Your mashup is here!",
-  //   attachments: [
-  //     {
-  //       filename: "output.zip",
-  //       path: "output.zip",
-  //     },
-  //   ],
-  // };
+  const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      type: "OAuth2",
+      user: process.env.MAIL_USERNAME,
+      clientId: process.env.OAUTH_CLIENTID,
+      clientSecret: process.env.OAUTH_CLIENT_SECRET,
+      refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+      accessToken: process.env.ACCESS_TOKEN,
+    },
+  });
+  const mailOptions = {
+    from: process.env.MAIL,
+    to: req.body.email,
+    subject: "Your mashup is here!",
+    attachments: [
+      {
+        filename: "output.zip",
+        path: "output.zip",
+      },
+    ],
+  };
   python.on("close", () => {
     console.log("Python execution completed!");
-    // transporter.sendMail(mailOptions, (error) => {
-    //   if (error) {
-    //     console.log("yes i am here");
-    //     return res.status(500).send(error.message);
-    //   } else {
-    //     console.log("Mail sent!");
-    //   }
-    // });
+    transporter.sendMail(mailOptions, (error) => {
+      if (error) {
+        console.log("yes i am here");
+        return res.status(500).send(error.message);
+      } else {
+        console.log("Mail sent!");
+      }
+    });
   });
 });
 
