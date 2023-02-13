@@ -11,6 +11,7 @@ def downloadSongs(search_query,n,end_time):
     video_links = set()
     i=0
     while(1):
+        print("downloading songs")
         if(len(video_links)==n):
             break
         video_links.add('https://www.youtube.com/watch?v=' + html_content.split("watch?v=")[i + 1].split("\"")[0])
@@ -22,6 +23,7 @@ def downloadSongs(search_query,n,end_time):
         subprocess.run(['youtube-dl', link,"--extract-audio","--audio-format", "mp3","--max-filesize", "5m", "-o", f"songs/%(title)s.%(ext)s", "--postprocessor-args", f"-ss {start_time} -t {end_time - start_time}"])
 
 def mergeSongs(output_file):
+    print("In merge function")
     folder = "songs"
     audio_files = [f for f in os.listdir(folder) if f.endswith('.mp3')]
     merged_audio = AudioSegment.from_mp3(os.path.join(folder, audio_files[0]))
@@ -34,23 +36,11 @@ def mergeSongs(output_file):
         myzip.write(output_file)
 
 def main():
-    # if len(sys.argv) != 5:
-    #     print("Number of arguments should be 5")
-    #     exit(1)
-    # elif ".mp3" != (os.path.splitext(sys.argv[4]))[1]:
-    #     print(f"Wrong format, {sys.argv[4]} is not mp3")
-    #     exit(1)
-    # elif int(sys.argv[2])<=0:
-    #     print("Number of videos should be greater than 0")
-    #     exit(1)
-    # elif int(sys.argv[3])<=19:
-    #     print("Timestamp should be greater than equal to 30")
-    #     exit(1)
     search_query = sys.argv[1]
     n = int(sys.argv[2])
     end_time = int(sys.argv[3])
     output_file = sys.argv[4]
-    # downloadSongs(search_query,n,end_time)
+    downloadSongs(search_query,n,end_time)
     mergeSongs(output_file)
 
 if __name__ == "__main__":

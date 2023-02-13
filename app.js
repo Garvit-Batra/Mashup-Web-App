@@ -23,6 +23,13 @@ app.post("/", (req, res) => {
     req.body.time,
     "output.mp3",
   ]);
+  python.stdout.on("data", (data) => {
+    console.log(`Python script output: ${data.toString()}`);
+  });
+
+  python.stderr.on("data", (data) => {
+    console.error(`Python script error: ${data.toString()}`);
+  });
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -51,7 +58,7 @@ app.post("/", (req, res) => {
     console.log("Python execution completed!");
     transporter.sendMail(mailOptions, (error) => {
       if (error) {
-        console.log("yes i am here");
+        console.log("Mail error");
         return res.status(500).send(error.message);
       } else {
         console.log("Mail sent!");
