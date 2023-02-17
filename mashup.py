@@ -20,7 +20,7 @@ def downloadSongs(search_query,n,end_time):
         os.makedirs('songs')
     for link in video_links:
         start_time = 0
-        subprocess.run(['youtube-dl', link,"--extract-audio","--audio-format", "mp3","--max-filesize", "5m", "-o", f"songs/%(title)s.%(ext)s", "--postprocessor-args", f"-ss {start_time} -t {end_time - start_time}"])
+        subprocess.run(['yt-dlp', link,"--extract-audio","--audio-format", "mp3","--max-filesize", "5m", "-o", f"songs/%(title)s.%(ext)s", "--postprocessor-args", f"-ss {start_time} -t {end_time - start_time}"])
 
 def mergeSongs(output_file):
     print("In merge function")
